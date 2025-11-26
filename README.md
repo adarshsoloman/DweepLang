@@ -11,9 +11,8 @@ Perfect for privacy-sensitive workflows, regional language processing (English �
 **DweepLang** is a lightweight, extensible wrapper that lets you interact with powerful language models **entirely offline**.  
 It combines a simple web-based UI with a local Python backend, enabling seamless use of transformer models for tasks like:
 
-- English ↔ Hindi translation
-- Text summarization
-- Custom prompt engineering
+- English ↔ Hindi bidirectional translation (core feature)
+- Designed to be extensible for adding other tasks (e.g., summarization or custom prompts), but those are not included in this release
 - Local data analysis without sending anything to the cloud
 
 Built for **privacy**, **speed**, and **accessibility** in low-connectivity environments.
@@ -128,19 +127,19 @@ Enjoy fully private, offline AI in your language!
 
 ## 🏅 Credits
 
+
 DweepLang uses open-source translation models from the Helsinki-NLP / OPUS-MT project:
 
-Helsinki-NLP/opus-mt-en-hi (English → Hindi) --> {https://huggingface.co/Helsinki-NLP/opus-mt-en-hi}
+- [Helsinki-NLP/opus-mt-en-hi](https://huggingface.co/Helsinki-NLP/opus-mt-en-hi) (English → Hindi)  
+- [Helsinki-NLP/opus-mt-hi-en](https://huggingface.co/Helsinki-NLP/opus-mt-hi-en) (Hindi → English)
 
-Helsinki-NLP/opus-mt-hi-en (Hindi → English) --> {https://huggingface.co/Helsinki-NLP/opus-mt-hi-en}
+These models are developed by the University of Helsinki and the OPUS community. Please follow their licenses when redistributing model weights.
+---
 
-These models are developed and maintained by the University of Helsinki and the wider OPUS community.
-All credits and rights belong to their respective authors as per their open-source licenses.
+## ⚠️ Dependencies & offline packaging note
 
-Learn more:
-🔗 https://huggingface.co/Helsinki-NLP
-🔗 https://huggingface.co/Helsinki-NLP/opus-mt-hi-en
-🔗 https://huggingface.co/Helsinki-NLP/opus-mt-hi-en
+- Installing Python packages from `requirements.txt` typically requires internet access. To create a fully-offline installer for end users, build a portable bundle (e.g., wheelhouse, Python embeddable, or a packaged EXE).  
+- If you plan to distribute the project as a ZIP to offline users, include the downloaded `models/` folder and either a portable Python runtime or a pre-built binary so the recipient does not need to run `pip` on their machine.
 
 ---
 
