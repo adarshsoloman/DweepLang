@@ -23,7 +23,7 @@ Built for **privacy**, **speed**, and **accessibility** in low-connectivity envi
 
 ## 🏗️ 2. Project File Structure
 
-```
+
 DweepLingo/
 ├── models/                  # Downloaded model checkpoints (not in repo)
 │   ├── en-hi/               # English → Hindi model
@@ -52,7 +52,7 @@ DweepLingo/
 ├── download.py             # Downloads models automatically
 ├── requirements.txt         # Python dependencies
 └── README.txt               # Legacy notes (optional)
-```
+
 
 > **Important**: Large model files (`pytorch_model.bin`, `.safetensors`, etc.) are **not** included in the repository due to size. They are downloaded automatically via `download.py`.
 
@@ -130,8 +130,5 @@ Enjoy fully private, offline AI in your language!
 ---
 
 Made with ❤️ for privacy-first, local AI in Indian languages.
-```
 
-You can now save this entire content as `README.md` in your project root!  
-Let me know if you want a dark-mode version, Hindi translation of the README, or a downloadable HTML version! 🚀
-```
+For any queries email at : adarshsoloman196@gmail.com
