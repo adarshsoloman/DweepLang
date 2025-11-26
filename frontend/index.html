@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>DweepLingo Offline Translator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: radial-gradient(circle at top, #151023, #141022);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 1rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2.5rem;
+            padding: 1rem;
+        }
+
+        header {
+            text-align: center;
+        }
+
+        .icon-circle {
+            width: 64px;
+            height: 64px;
+            background: rgba(70, 13, 242, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            box-shadow: 0 0 20px rgba(70, 13, 242, 0.5);
+        }
+
+        .icon-circle::before {
+            content: "🌐";
+            font-size: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+
+        main {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1.5rem;
+            align-items: start;
+            position: relative;
+        }
+
+        .text-box {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .lang-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 0.5rem;
+        }
+
+        select {
+            background: rgba(30, 25, 51, 0.5);
+            color: white;
+            border: 1px solid rgba(70, 13, 242, 0.2);
+            border-radius: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        select:hover {
+            background: rgba(30, 25, 51, 0.7);
+        }
+
+        select:focus {
+            border-color: rgba(70, 13, 242, 0.8);
+            box-shadow: 0 0 0 3px rgba(70, 13, 242, 0.2);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 240px;
+            padding: 1rem;
+            background: rgba(30, 25, 51, 0.5);
+            border: 1px solid rgba(70, 13, 242, 0.2);
+            border-radius: 0.75rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            font-family: inherit;
+            resize: vertical;
+            outline: none;
+            transition: all 0.2s;
+            box-shadow: 0 0 20px rgba(70, 13, 242, 0.1);
+        }
+
+        textarea:focus {
+            border-color: rgba(70, 13, 242, 0.8);
+            box-shadow: 0 0 0 3px rgba(70, 13, 242, 0.2);
+        }
+
+        textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        textarea[readonly] {
+            cursor: default;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.375rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-small:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .swap-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .swap-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: none;
+            background: #460df2;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(70, 13, 242, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .swap-btn:hover {
+            transform: scale(1.1) rotate(180deg);
+            box-shadow: 0 0 30px rgba(70, 13, 242, 0.9);
+        }
+
+        .swap-btn::before {
+            content: "⇄";
+        }
+
+        .main-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            width: 100%;
+            max-width: 512px;
+        }
+
+        .btn-primary {
+            flex: 1;
+            padding: 0.75rem 2rem;
+            background: #460df2;
+            border: none;
+            border-radius: 0.5rem;
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 0 20px rgba(70, 13, 242, 0.5);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(70, 13, 242, 0.8);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            padding: 0.75rem 2rem;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.5rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .status-message {
+            width: 100%;
+            max-width: 512px;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+
+        .status-message.show {
+            max-height: 100px;
+            opacity: 1;
+        }
+
+        .status-message.loading {
+            background: rgba(234, 179, 8, 0.2);
+            color: #fef08a;
+            border: 1px solid rgba(234, 179, 8, 0.3);
+        }
+
+        .status-message.success {
+            background: rgba(34, 197, 94, 0.2);
+            color: #86efac;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .status-message.error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        footer {
+            width: 100%;
+            padding: 1.5rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            main {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .swap-container {
+                margin: 0;
+            }
+
+            .swap-btn {
+                transform: rotate(90deg);
+            }
+
+            .swap-btn:hover {
+                transform: rotate(270deg) scale(1.1);
+            }
+
+            .main-actions {
+                flex-direction: column;
+                max-width: 100%;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="icon-circle"></div>
+            <h1>DweepLingo</h1>
+            <p class="subtitle">English ↔ Hindi Offline Translator</p>
+        </header>
+
+        <main>
+            <!-- Source Language -->
+            <div class="text-box">
+                <div class="lang-header">
+                    <select id="srcLang">
+                        <option value="en">English</option>
+                        <option value="hi">हिंदी (Hindi)</option>
+                    </select>
+                </div>
+                <textarea id="inputText" placeholder="Enter text to translate..."></textarea>
+            </div>
+
+            <!-- Swap Button -->
+            <div class="swap-container">
+                <button class="swap-btn" id="swapBtn"></button>
+            </div>
+
+            <!-- Target Language -->
+            <div class="text-box">
+                <div class="lang-header">
+                    <select id="tgtLang">
+                        <option value="hi">हिंदी (Hindi)</option>
+                        <option value="en">English</option>
+                    </select>
+                    <div class="action-buttons">
+                        <button class="btn-small" id="copyBtn">
+                            <span>📋</span>
+                            <span>Copy</span>
+                        </button>
+                        <button class="btn-small" id="downloadBtn">
+                            <span>⬇️</span>
+                            <span>Download</span>
+                        </button>
+                    </div>
+                </div>
+                <textarea id="outputText" placeholder="Translation will appear here..." readonly></textarea>
+            </div>
+        </main>
+
+        <div class="main-actions">
+            <button class="btn-primary" id="translateBtn">Translate</button>
+            <button class="btn-secondary" id="clearBtn">Clear</button>
+        </div>
+
+        <div id="statusMessage" class="status-message"></div>
+    </div>
+
+    <footer>
+        <p>Powered by Helsinki-NLP OPUS-MT</p>
+    </footer>
+
+    <script>
+        // Translation function
+        async function performTranslation() {
+            const inputText = document.getElementById('inputText').value.trim();
+            const srcLang = document.getElementById('srcLang').value;
+            const tgtLang = document.getElementById('tgtLang').value;
+            const translateBtn = document.getElementById('translateBtn');
+
+            // Validation
+            if (!inputText) {
+                showStatus('Please enter text to translate', 'error');
+                return;
+            }
+
+            if (srcLang === tgtLang) {
+                showStatus('Source and target languages must be different', 'error');
+                return;
+            }
+
+            // Show loading state
+            translateBtn.disabled = true;
+            translateBtn.textContent = 'Translating...';
+            showStatus('Translating...', 'loading');
+            document.getElementById('outputText').value = '';
+
+            try {
+                const response = await fetch('/translate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        text: inputText,
+                        src_lang: srcLang,
+                        tgt_lang: tgtLang
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('outputText').value = data.translation;
+                    showStatus('Translation complete! ✓', 'success');
+                    setTimeout(() => hideStatus(), 3000);
+                } else {
+                    throw new Error(data.detail || 'Translation failed');
+                }
+            } catch (error) {
+                showStatus(`Error: ${error.message}`, 'error');
+                console.error('Translation error:', error);
+            } finally {
+                translateBtn.disabled = false;
+                translateBtn.textContent = 'Translate';
+            }
+        }
+
+        // Swap languages
+        function swapLanguages() {
+            const srcLang = document.getElementById('srcLang');
+            const tgtLang = document.getElementById('tgtLang');
+            const inputText = document.getElementById('inputText');
+            const outputText = document.getElementById('outputText');
+
+            [srcLang.value, tgtLang.value] = [tgtLang.value, srcLang.value];
+            [inputText.value, outputText.value] = [outputText.value, inputText.value];
+        }
+
+        // Clear text
+        function clearText() {
+            document.getElementById('inputText').value = '';
+            document.getElementById('outputText').value = '';
+            hideStatus();
+        }
+
+        // Copy translation
+        function copyTranslation() {
+            const outputText = document.getElementById('outputText').value;
+            
+            if (!outputText) {
+                showStatus('No translation to copy', 'error');
+                return;
+            }
+
+            navigator.clipboard.writeText(outputText).then(() => {
+                showStatus('Copied to clipboard! ✓', 'success');
+                setTimeout(() => hideStatus(), 2000);
+            }).catch(err => {
+                showStatus('Failed to copy', 'error');
+                console.error('Copy error:', err);
+            });
+        }
+
+        // Download translation
+        function downloadTranslation() {
+            const outputText = document.getElementById('outputText').value;
+            
+            if (!outputText) {
+                showStatus('No translation to download', 'error');
+                return;
+            }
+
+            const blob = new Blob([outputText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'translation.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showStatus('Downloaded! ✓', 'success');
+            setTimeout(() => hideStatus(), 2000);
+        }
+
+        // Show status message
+        function showStatus(message, type) {
+            const statusEl = document.getElementById('statusMessage');
+            statusEl.className = `status-message ${type} show`;
+            statusEl.textContent = message;
+        }
+
+        // Hide status message
+        function hideStatus() {
+            const statusEl = document.getElementById('statusMessage');
+            statusEl.classList.remove('show');
+        }
+
+        // Event listeners
+        document.getElementById('translateBtn').addEventListener('click', performTranslation);
+        document.getElementById('swapBtn').addEventListener('click', swapLanguages);
+        document.getElementById('clearBtn').addEventListener('click', clearText);
+        document.getElementById('copyBtn').addEventListener('click', copyTranslation);
+        document.getElementById('downloadBtn').addEventListener('click', downloadTranslation);
+
+        // Keyboard shortcut: Ctrl+Enter to translate
+        document.getElementById('inputText').addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                performTranslation();
+            }
+        });
+    </script>
+</body>
+</html>
