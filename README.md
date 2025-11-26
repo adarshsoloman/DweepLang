@@ -1,4 +1,4 @@
-# 🌊 DweepLang: Localized LLM Interface
+# 🌊 DweepLang: Your Offline English–Hindi AI Translator
 
 A **proof-of-concept**, full-stack, **offline-first** Large Language Model interface that runs completely on your local machine — no internet required after setup.
 
