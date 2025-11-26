@@ -48,9 +48,9 @@ DweepLingo/
 │
 ├── run.bat                  # One-click start (Windows)
 ├── run.sh                   # One-click start (Linux/macOS)
-├── download.py             # Downloads models automatically
+├── download.py              # Downloads models automatically
 ├── requirements.txt         # Python dependencies
-└── README.txt               # Legacy notes (optional)
+└── README.md                # Legacy notes (optional)
 ```
 
 > **Important**: Large model files (`pytorch_model.bin`, `.safetensors`, etc.) are **not** included in the repository due to size. They are downloaded automatically via `download.py`.
@@ -125,6 +125,22 @@ Enjoy fully private, offline AI in your language!
 - Clean, responsive web interface
 - No data leaves your machine
 - Easy to extend with new models or tasks
+
+## 🏅 Credits
+
+DweepLang uses open-source translation models from the Helsinki-NLP / OPUS-MT project:
+
+Helsinki-NLP/opus-mt-en-hi (English → Hindi) --> {https://huggingface.co/Helsinki-NLP/opus-mt-en-hi}
+
+Helsinki-NLP/opus-mt-hi-en (Hindi → English) --> {https://huggingface.co/Helsinki-NLP/opus-mt-hi-en}
+
+These models are developed and maintained by the University of Helsinki and the wider OPUS community.
+All credits and rights belong to their respective authors as per their open-source licenses.
+
+Learn more:
+🔗 https://huggingface.co/Helsinki-NLP
+🔗 https://huggingface.co/Helsinki-NLP/opus-mt-hi-en
+🔗 https://huggingface.co/Helsinki-NLP/opus-mt-hi-en
 
 ---
 
