@@ -69,8 +69,23 @@ pip install uv
 # Install all dependencies
 uv sync
 ```
+#                                                                                                       OR
+### 1. Create a virtual environment (highly recommended)
+```bash
+python -m venv .venv
+```
+### 2. Activate the virtual environment
+### Windows:
+```bash
+.\.venv\Scripts\activate
+```
 
-Fallback with pip:
+### Linux/macOS:
+```bash
+source .venv/bin/activate
+```
+
+And then install using pip:
 
 ```bash
 pip install -r requirements.txt
@@ -125,6 +140,14 @@ Enjoy fully private, offline AI in your language!
 - No data leaves your machine
 - Easy to extend with new models or tasks
 
+---
+## ⚠️ Dependencies & offline packaging note
+
+- Installing Python packages from `requirements.txt` typically requires internet access. To create a fully-offline installer for end users, build a portable bundle (e.g., wheelhouse, Python embeddable, or a packaged EXE).  
+- If you plan to distribute the project as a ZIP to offline users, include the downloaded `models/` folder and either a portable Python runtime or a pre-built binary so the recipient does not need to run `pip` on their machine.
+
+---
+
 ## 🏅 Credits
 
 
@@ -134,13 +157,6 @@ DweepLang uses open-source translation models from the Helsinki-NLP / OPUS-MT pr
 - [Helsinki-NLP/opus-mt-hi-en](https://huggingface.co/Helsinki-NLP/opus-mt-hi-en) (Hindi → English)
 
 These models are developed by the University of Helsinki and the OPUS community. Please follow their licenses when redistributing model weights.
----
-
-## ⚠️ Dependencies & offline packaging note
-
-- Installing Python packages from `requirements.txt` typically requires internet access. To create a fully-offline installer for end users, build a portable bundle (e.g., wheelhouse, Python embeddable, or a packaged EXE).  
-- If you plan to distribute the project as a ZIP to offline users, include the downloaded `models/` folder and either a portable Python runtime or a pre-built binary so the recipient does not need to run `pip` on their machine.
-
 ---
 
 Made with ❤️ for privacy-first, local AI in Indian languages.
