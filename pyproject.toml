@@ -1,0 +1,21 @@
+[project]
+name = "dweeplang"
+version = "0.1.0"
+description = "Fully offline English ↔ Hindi translation app using Helsinki-NLP models."
+readme = "README.md"
+requires-python = ">=3.10"
+
+# Dependencies copied from requirements.txt
+dependencies = [
+    "fastapi==0.104.1",
+    "uvicorn==0.24.0",
+    "torch==2.1.0",
+    "transformers==4.36.0",
+    "sentencepiece==0.1.99",
+    "protobuf==4.25.1",
+    "sacremoses==0.1.1"
+]
+
+[tool.uv]
+# Means UV manages venv + lockfiles for you
+managed = true
