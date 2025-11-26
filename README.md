@@ -1,4 +1,3 @@
-```markdown
 # 🌊 DweepLang: Localized LLM Interface
 
 A **proof-of-concept**, full-stack, **offline-first** Large Language Model interface that runs completely on your local machine — no internet required after setup.
@@ -23,7 +22,7 @@ Built for **privacy**, **speed**, and **accessibility** in low-connectivity envi
 
 ## 🏗️ 2. Project File Structure
 
-
+```
 DweepLingo/
 ├── models/                  # Downloaded model checkpoints (not in repo)
 │   ├── en-hi/               # English → Hindi model
@@ -52,7 +51,7 @@ DweepLingo/
 ├── download.py             # Downloads models automatically
 ├── requirements.txt         # Python dependencies
 └── README.txt               # Legacy notes (optional)
-
+```
 
 > **Important**: Large model files (`pytorch_model.bin`, `.safetensors`, etc.) are **not** included in the repository due to size. They are downloaded automatically via `download.py`.
 
@@ -113,7 +112,7 @@ python app.py
 
 The app will launch a local web server. Open your browser and go to the URL shown in the terminal (usually):
 
-**http://127.0.0.1:5000**
+**http://127.0.0.1:8000**
 
 Enjoy fully private, offline AI in your language!
 
