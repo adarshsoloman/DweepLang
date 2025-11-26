@@ -12,6 +12,10 @@ __pycache__/
 project/models/*/
 !project/models/**/.gitkeep
 
+# Add these lines to your .gitignore file
+models/en-hi/model.safetensors
+models/hi-en/model.safetensors
+
 
 
 # OS junk
